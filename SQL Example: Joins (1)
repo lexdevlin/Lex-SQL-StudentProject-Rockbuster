@@ -1,4 +1,4 @@
-## Customers with Highest Lifetime Value
+# Customers with Highest Lifetime Value
 SELECT A.customer_id,
        B.first_name,
        C.last_name,
