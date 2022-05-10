@@ -1,0 +1,17 @@
+-- Inventory Information by Film Genre
+
+SELECT C.name AS genre,
+       SUM(amount) AS total_revenue, -- total revenue per genre
+       COUNT(DISTINCT A.film_id) AS films, -- distinct film titles
+       COUNT(DISTINCT D.inventory_id) AS copies_in_stock, -- total rentable copies
+       COUNT(DISTINCT E.rental_id) AS total_rentals, -- times films from this genre were rented
+       AVG(A.rental_rate) AS average_rental_rate,
+       AVG(A.replacement_cost) AS average_replacement_cost
+FROM film A						
+INNER JOIN film_category B ON A.film_id = B.film_id						
+INNER JOIN category C ON B.category_id = C.category_id						
+INNER JOIN inventory D ON A.film_id = D.film_id						
+INNER JOIN rental E ON D.inventory_id = E.inventory_id						
+INNER JOIN payment F ON E.rental_id = F.rental_id						
+GROUP BY genre						
+ORDER BY total_revenue DESC
